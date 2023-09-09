@@ -59,11 +59,13 @@ class ListeningProcess(Thread):
             if not event.data: continue
 
             data = json.loads(event.data)
+            if "temp_apparent" not in data: continue
+
             self.historic_info.append(data["temp_apparent"])
             switch = self.regulator.switch(self.historic_info)
 
             if switch == 1:
-                requests.get(self.switch_url)
+                requests.post(self.switch_url)
 
 
 if __name__ == "__main__":
@@ -74,4 +76,4 @@ if __name__ == "__main__":
 
     ListeningProcess(Regulator(t_min, t_max, (t_max - t_min) * 0.3),
                      "http://localhost:8000/events",
-                     "http://localhost:8000/switch").start()
+                     "http://localhost:8000/switch/").start()
