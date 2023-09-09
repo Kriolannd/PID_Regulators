@@ -7,6 +7,8 @@ import numpy as np
 import requests
 from sseclient import SSEClient
 
+import os
+
 
 class Regulator:
     def __init__(self, t_min, t_max, dt):
@@ -69,7 +71,7 @@ class ListeningProcess(Thread):
 
 
 if __name__ == "__main__":
-    with open("../F3.txt", "r") as f:
+    with open(os.path.join(os.path.dirname(__file__), "F3.txt"), "r") as f:
         params = f.read().split(";")
         dt = float(params[0])
         t_max, t_min = map(int, params[2:4])
