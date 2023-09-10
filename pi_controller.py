@@ -77,5 +77,5 @@ if __name__ == "__main__":
         t_max, t_min = map(int, params[2:4])
 
     ListeningProcess(Regulator(t_min, t_max, (t_max - t_min) * 0.3),
-                     "http://localhost:8000/events",
-                     "http://localhost:8000/switch/").start()
+                     "http://phys-mode:8000/events",
+                     "http://phys-mode:8000/switch/").start()
