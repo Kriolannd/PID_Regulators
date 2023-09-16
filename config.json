@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "tMin": 700,
+    "tMax": 1000,
+    "dt": 0.5
+  },
+  "connection": {
+    "switchUrl": "http://phys-mode:8000/switch",
+    "eventsUrl": "http://phys-mode:8000/events"
+  }
+}

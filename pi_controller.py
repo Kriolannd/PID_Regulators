@@ -1,4 +1,5 @@
 import json
+import sys
 import time
 from threading import Thread
 
@@ -71,11 +72,12 @@ class ListeningProcess(Thread):
 
 
 if __name__ == "__main__":
-    with open(os.path.join(os.path.dirname(__file__), "F3.txt"), "r") as f:
-        params = f.read().split(";")
-        dt = float(params[0])
-        t_max, t_min = map(int, params[2:4])
+    with open(os.path.join(os.path.dirname(sys.executable), "config.json"), "r") as f:
+        config = json.loads(f.read())
 
-    ListeningProcess(Regulator(t_min, t_max, (t_max - t_min) * 0.3),
-                     "http://phys-mode:8000/events",
-                     "http://phys-mode:8000/switch/").start()
+    settings = config["settings"]
+    connection_params = config["connection"]
+
+    ListeningProcess(Regulator(settings["tMin"], settings["tMax"], (settings["tMax"] - settings["tMin"]) * 0.3),
+                     connection_params["eventsUrl"],
+                     connection_params["switchUrl"]).start()
